@@ -34,7 +34,7 @@ resource "sakuracloud_load_balancer" "test" {
   }
 }`)
 
-	deny_sakuracloud_load_balancer_http_not_enabled["Port 80 is open on the VIP address of sakuracloud_load_balancer.test"] with input as cfg
+	deny_sakuracloud_load_balancer_http_not_enabled["Port 80 is open on the VIP address of sakuracloud_load_balancer.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_load_balancer/http_not_enabled/\n"] with input as cfg
 }
 
 test_enable_https_port {

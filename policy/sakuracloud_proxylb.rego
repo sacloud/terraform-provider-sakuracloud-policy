@@ -6,9 +6,13 @@ import data.helpers.has_field
 deny_sakuracloud_proxylb_no_https_redirect[msg] {
 	some name
 	proxylb := input.resource.sakuracloud_proxylb[name]
-
 	not redirect_https(proxylb)
-	msg := sprintf("HTTP to HTTPS redirect is not enabled on sakuracloud_proxylb.%s", [name])
+
+	url := "https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/no_https_redirect/"
+	msg := sprintf(
+		"HTTP to HTTPS redirect is not enabled on sakuracloud_proxylb.%s\nMore Info: %s\n",
+		[name, url],
+	)
 }
 
 redirect_https(proxylb) {
@@ -28,5 +32,9 @@ warn_sakuracloud_proxylb_unspecified_syslog_host[msg] {
 	proxylb := input.resource.sakuracloud_proxylb[name]
 	not has_field(proxylb, "syslog")
 
-	msg := sprintf("No syslog server is configured for sakuracloud_proxylb.%s", [name])
+	url := "https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/unspecified_syslog_host/"
+	msg := sprintf(
+		"No syslog server is configured for sakuracloud_proxylb.%s\nMore Info: %s\n",
+		[name, url],
+	)
 }

@@ -18,7 +18,7 @@ resource "sakuracloud_server" "test" {
   }
 }`)
 
-	deny_sakuracloud_server_pw_auth_enabled_with_password["Password authentication is enabled with a password set on sakuracloud_server.test"] with input as cfg
+	deny_sakuracloud_server_pw_auth_enabled_with_password["Password authentication is enabled with a password set on sakuracloud_server.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_server/pw_auth_enabled_with_password/\n"] with input as cfg
 }
 
 test_disable_pw_auth_with_ssh_key_ids {
