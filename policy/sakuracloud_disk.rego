@@ -8,5 +8,9 @@ deny_sakuracloud_disk_not_encrypted[msg] {
 	disk := input.resource.sakuracloud_disk[name]
 	not disk.encryption_algorithm == "aes256_xts"
 
-	msg := sprintf("Disk encryption is not enabled in sakuracloud_disk.%s", [name])
+	url := "https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_disk/not_encrypted/"
+	msg := sprintf(
+		"Disk encryption is not enabled in sakuracloud_disk.%s\nMore Info: %s\n",
+		[name, url],
+	)
 }
