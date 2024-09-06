@@ -2,39 +2,88 @@ package main
 
 import data.exception
 import data.helpers.has_field
+import rego.v1
 
-deny_sakuracloud_proxylb_no_https_redirect[msg] {
+violation_sakuracloud_proxylb_no_https_redirect contains decision if {
+	resource := "sakuracloud_proxylb"
+	rule := "sakuracloud_proxylb_no_https_redirect"
+
 	some name
 	proxylb := input.resource.sakuracloud_proxylb[name]
 	not redirect_https(proxylb)
 
 	url := "https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/no_https_redirect/"
-	msg := sprintf(
-		"HTTP to HTTPS redirect is not enabled on sakuracloud_proxylb.%s\nMore Info: %s\n",
-		[name, url],
-	)
+	decision := {
+		"msg": sprintf(
+			"HTTP to HTTPS redirect is not enabled on sakuracloud_proxylb.%s\nMore Info: %s\n",
+			[name, url],
+		),
+		"resource": resource,
+		"rule": rule,
+	}
 }
 
-redirect_https(proxylb) {
+redirect_https(proxylb) if {
 	proxylb.bind_port.proxy_mode == "http"
 	proxylb.bind_port.redirect_to_https == true
 }
 
-redirect_https(proxylb) {
+redirect_https(proxylb) if {
 	bind_port := proxylb.bind_port[_]
 
 	bind_port.proxy_mode == "http"
 	bind_port.redirect_to_https == true
 }
 
-warn_sakuracloud_proxylb_unspecified_syslog_host[msg] {
+exception contains rules if {
+	v := data.main.violation_sakuracloud_proxylb_no_https_redirect[_]
+
+	input.resource[v.resource]
+	exception.rule[_] == v.rule
+	rules := [v.rule]
+}
+
+exception contains rules if {
+	v := data.main.violation_sakuracloud_proxylb_no_https_redirect[_]
+
+	some name
+	input.resource[v.resource][name]
+	name == exception.resource[v.resource][_]
+	rules := [v.rule]
+}
+
+warn_sakuracloud_proxylb_unspecified_syslog_host contains decision if {
+	resource := "sakuracloud_proxylb"
+	rule := "sakuracloud_proxylb_unspecified_syslog_host"
+
 	some name
 	proxylb := input.resource.sakuracloud_proxylb[name]
 	not has_field(proxylb, "syslog")
-
 	url := "https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/unspecified_syslog_host/"
-	msg := sprintf(
-		"No syslog server is configured for sakuracloud_proxylb.%s\nMore Info: %s\n",
-		[name, url],
-	)
+
+	decision := {
+		"msg": sprintf(
+			"No syslog server is configured for sakuracloud_proxylb.%s\nMore Info: %s\n",
+			[name, url],
+		),
+		"resource": resource,
+		"rule": rule,
+	}
+}
+
+exception contains rules if {
+	v := data.main.warn_sakuracloud_proxylb_unspecified_syslog_host[_]
+
+	input.resource[v.resource]
+	exception.rule[_] == v.rule
+	rules := [v.rule]
+}
+
+exception contains rules if {
+	v := data.main.warn_sakuracloud_proxylb_unspecified_syslog_host[_]
+
+	some name
+	input.resource[v.resource][name]
+	name == exception.resource[v.resource][_]
+	rules := [v.rule]
 }

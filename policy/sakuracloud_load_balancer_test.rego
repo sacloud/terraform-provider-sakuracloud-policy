@@ -33,8 +33,11 @@ resource "sakuracloud_load_balancer" "test" {
     }
   }
 }`)
-
-	deny_sakuracloud_load_balancer_http_not_enabled["Port 80 is open on the VIP address of sakuracloud_load_balancer.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_load_balancer/http_not_enabled/\n"] with input as cfg
+	violation_sakuracloud_load_balancer_http_not_enabled[{
+		"msg": "Port 80 is open on the VIP address of sakuracloud_load_balancer.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_load_balancer/http_not_enabled/\n",
+		"resource": "sakuracloud_load_balancer",
+		"rule": "sakuracloud_load_balancer_http_not_enabled",
+	}] with input as cfg
 }
 
 test_enable_https_port {
@@ -68,8 +71,7 @@ resource "sakuracloud_load_balancer" "test" {
     }
   }
 }`)
-
-	no_violations(deny_sakuracloud_load_balancer_http_not_enabled) with input as cfg
+	no_violations(violation_sakuracloud_load_balancer_http_not_enabled) with input as cfg
 }
 
 test_not_specified_vip {
@@ -85,6 +87,5 @@ resource "sakuracloud_load_balancer" "test" {
     gateway      = "192.168.0.1"
   }
 }`)
-
-	no_violations(deny_sakuracloud_load_balancer_http_not_enabled) with input as cfg
+	no_violations(violation_sakuracloud_load_balancer_http_not_enabled) with input as cfg
 }
