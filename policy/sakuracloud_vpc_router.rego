@@ -9,7 +9,7 @@ violation_sakuracloud_vpc_router_internet_connection_without_firewall contains d
 	rule := "sakuracloud_vpc_router_internet_connection_without_firewall"
 
 	some name
-	vpc_router := input.resource.sakuracloud_vpc_router[name]
+	vpc_router := input.resource[resource][name]
 
 	is_internet_connected(vpc_router)
 	not used_firewall_global_interface(vpc_router)
@@ -17,8 +17,8 @@ violation_sakuracloud_vpc_router_internet_connection_without_firewall contains d
 	url := "https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_vpc_router/internet_connection_without_firewall/"
 	decision := {
 		"msg": sprintf(
-			"Internet connection is enabled on sakuracloud_vpc_router.%s, but no firewall is configured on the global interface\nMore Info: %s\n",
-			[name, url],
+			"%s\nInternet connection is enabled on %s.%s, but no firewall is configured on the global interface\nMore Info: %s\n",
+			[rule, resource, name, url],
 		),
 		"resource": resource,
 		"rule": rule,
@@ -63,16 +63,14 @@ warn_sakuracloud_vpc_router_unspecified_syslog_host contains decision if {
 	rule := "sakuracloud_vpc_router_unspecified_syslog_host"
 
 	some name
-
-	vpc_router := input.resource.sakuracloud_vpc_router[name]
+	vpc_router := input.resource[resource][name]
 	not has_field(vpc_router, "syslog_host")
 
 	url := "https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_vpc_router/unspecified_syslog_host/"
-
 	decision := {
 		"msg": sprintf(
-			"No syslog server is configured for sakuracloud_vpc_router.%s\nMore Info: %s\n",
-			[name, url],
+			"%s\nNo syslog server is configured for %s.%s\nMore Info: %s\n",
+			[rule, resource, name, url],
 		),
 		"resource": resource,
 		"rule": rule,

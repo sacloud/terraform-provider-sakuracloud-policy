@@ -19,7 +19,7 @@ resource "sakuracloud_server" "test" {
 }`)
 
 	violation_sakuracloud_server_pw_auth_enabled_with_password[{
-		"msg": "Password authentication is enabled with a password set on sakuracloud_server.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_server/pw_auth_enabled_with_password/\n",
+		"msg": "sakuracloud_server_pw_auth_enabled_with_password\nPassword authentication is enabled with a password set on sakuracloud_server.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_server/pw_auth_enabled_with_password/\n",
 		"resource": "sakuracloud_server",
 		"rule": "sakuracloud_server_pw_auth_enabled_with_password",
 	}] with input as cfg

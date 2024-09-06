@@ -9,14 +9,14 @@ violation_sakuracloud_proxylb_no_https_redirect contains decision if {
 	rule := "sakuracloud_proxylb_no_https_redirect"
 
 	some name
-	proxylb := input.resource.sakuracloud_proxylb[name]
+	proxylb := input.resource[resource][name]
 	not redirect_https(proxylb)
 
 	url := "https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/no_https_redirect/"
 	decision := {
 		"msg": sprintf(
-			"HTTP to HTTPS redirect is not enabled on sakuracloud_proxylb.%s\nMore Info: %s\n",
-			[name, url],
+			"%s\nHTTP to HTTPS redirect is not enabled on %s.%s\nMore Info: %s\n",
+			[rule, resource, name, url],
 		),
 		"resource": resource,
 		"rule": rule,
@@ -57,14 +57,14 @@ warn_sakuracloud_proxylb_unspecified_syslog_host contains decision if {
 	rule := "sakuracloud_proxylb_unspecified_syslog_host"
 
 	some name
-	proxylb := input.resource.sakuracloud_proxylb[name]
+	proxylb := input.resource[resource][name]
 	not has_field(proxylb, "syslog")
 	url := "https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/unspecified_syslog_host/"
 
 	decision := {
 		"msg": sprintf(
-			"No syslog server is configured for sakuracloud_proxylb.%s\nMore Info: %s\n",
-			[name, url],
+			"%s\nNo syslog server is configured for %s.%s\nMore Info: %s\n",
+			[rule, resource, name, url],
 		),
 		"resource": resource,
 		"rule": rule,

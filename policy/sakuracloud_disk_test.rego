@@ -12,7 +12,7 @@ resource "sakuracloud_disk" "test" {
   source_archive_id    = data.sakuracloud_archive.ubuntu2204.id
 }`)
 	violation_sakuracloud_disk_not_encrypted[{
-		"msg": "Disk encryption is not enabled in sakuracloud_disk.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_disk/not_encrypted/\n",
+		"msg": "sakuracloud_disk_not_encrypted\nDisk encryption is not enabled in sakuracloud_disk.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_disk/not_encrypted/\n",
 		"resource": "sakuracloud_disk",
 		"rule": "sakuracloud_disk_not_encrypted",
 	}] with input as cfg
@@ -29,7 +29,7 @@ resource "sakuracloud_disk" "test" {
   encryption_algorithm = "none"
 }`)
 	violation_sakuracloud_disk_not_encrypted[{
-		"msg": "Disk encryption is not enabled in sakuracloud_disk.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_disk/not_encrypted/\n",
+		"msg": "sakuracloud_disk_not_encrypted\nDisk encryption is not enabled in sakuracloud_disk.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_disk/not_encrypted/\n",
 		"resource": "sakuracloud_disk",
 		"rule": "sakuracloud_disk_not_encrypted",
 	}] with input as cfg

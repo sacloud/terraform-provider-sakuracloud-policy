@@ -9,7 +9,7 @@ resource "sakuracloud_vpc_router" "test" {
   internet_connection = true
 }`)
 	violation_sakuracloud_vpc_router_internet_connection_without_firewall[{
-		"msg": "Internet connection is enabled on sakuracloud_vpc_router.test, but no firewall is configured on the global interface\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_vpc_router/internet_connection_without_firewall/\n",
+		"msg": "sakuracloud_vpc_router_internet_connection_without_firewall\nInternet connection is enabled on sakuracloud_vpc_router.test, but no firewall is configured on the global interface\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_vpc_router/internet_connection_without_firewall/\n",
 		"resource": "sakuracloud_vpc_router",
 		"rule": "sakuracloud_vpc_router_internet_connection_without_firewall",
 	}] with input as cfg
@@ -49,7 +49,7 @@ resource "sakuracloud_vpc_router" "test" {
   }
 }`)
 	violation_sakuracloud_vpc_router_internet_connection_without_firewall[{
-		"msg": "Internet connection is enabled on sakuracloud_vpc_router.test, but no firewall is configured on the global interface\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_vpc_router/internet_connection_without_firewall/\n",
+		"msg": "sakuracloud_vpc_router_internet_connection_without_firewall\nInternet connection is enabled on sakuracloud_vpc_router.test, but no firewall is configured on the global interface\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_vpc_router/internet_connection_without_firewall/\n",
 		"resource": "sakuracloud_vpc_router",
 		"rule": "sakuracloud_vpc_router_internet_connection_without_firewall",
 	}] with input as cfg
@@ -170,7 +170,7 @@ resource "sakuracloud_vpc_router" "test" {
 }
     `)
 	warn_sakuracloud_vpc_router_unspecified_syslog_host[{
-		"msg": "No syslog server is configured for sakuracloud_vpc_router.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_vpc_router/unspecified_syslog_host/\n",
+		"msg": "sakuracloud_vpc_router_unspecified_syslog_host\nNo syslog server is configured for sakuracloud_vpc_router.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_vpc_router/unspecified_syslog_host/\n",
 		"resource": "sakuracloud_vpc_router",
 		"rule": "sakuracloud_vpc_router_unspecified_syslog_host",
 	}] with input as cfg

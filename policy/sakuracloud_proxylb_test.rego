@@ -21,7 +21,7 @@ resource "sakuracloud_proxylb" "test" {
   }
 }`)
 	violation_sakuracloud_proxylb_no_https_redirect[{
-		"msg": "HTTP to HTTPS redirect is not enabled on sakuracloud_proxylb.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/no_https_redirect/\n",
+		"msg": "sakuracloud_proxylb_no_https_redirect\nHTTP to HTTPS redirect is not enabled on sakuracloud_proxylb.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/no_https_redirect/\n",
 		"resource": "sakuracloud_proxylb",
 		"rule": "sakuracloud_proxylb_no_https_redirect",
 	}] with input as cfg
@@ -47,7 +47,7 @@ resource "sakuracloud_proxylb" "test" {
   }
 }`)
 	violation_sakuracloud_proxylb_no_https_redirect[{
-		"msg": "HTTP to HTTPS redirect is not enabled on sakuracloud_proxylb.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/no_https_redirect/\n",
+		"msg": "sakuracloud_proxylb_no_https_redirect\nHTTP to HTTPS redirect is not enabled on sakuracloud_proxylb.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/no_https_redirect/\n",
 		"resource": "sakuracloud_proxylb",
 		"rule": "sakuracloud_proxylb_no_https_redirect",
 	}] with input as cfg
@@ -118,7 +118,7 @@ resource "sakuracloud_proxylb" "test" {
   }
 }`)
 	warn_sakuracloud_proxylb_unspecified_syslog_host[{
-		"msg": "No syslog server is configured for sakuracloud_proxylb.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/unspecified_syslog_host/\n",
+		"msg": "sakuracloud_proxylb_unspecified_syslog_host\nNo syslog server is configured for sakuracloud_proxylb.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/unspecified_syslog_host/\n",
 		"resource": "sakuracloud_proxylb",
 		"rule": "sakuracloud_proxylb_unspecified_syslog_host",
 	}] with input as cfg

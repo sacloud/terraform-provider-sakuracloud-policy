@@ -15,8 +15,8 @@ violation_sakuracloud_load_balancer_http_not_enabled contains decision if {
 	url := "https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_load_balancer/http_not_enabled/"
 	decision := {
 		"msg": sprintf(
-			"Port 80 is open on the VIP address of %s.%s\nMore Info: %s\n",
-			[resource, name, url],
+			"%s\nPort 80 is open on the VIP address of %s.%s\nMore Info: %s\n",
+			[rule, resource, name, url],
 		),
 		"resource": resource,
 		"rule": rule,

@@ -9,14 +9,14 @@ violation_sakuracloud_disk_not_encrypted contains decision if {
 	rule := "sakuracloud_disk_not_encrypted"
 
 	some name
-	disk := input.resource.sakuracloud_disk[name]
+	disk := input.resource[resource][name]
 	not disk.encryption_algorithm == "aes256_xts"
 
 	url := "https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_disk/not_encrypted/"
 	decision := {
 		"msg": sprintf(
-			"Disk encryption is not enabled in sakuracloud_disk.%s\nMore Info: %s\n",
-			[name, url],
+			"%s\nDisk encryption is not enabled in %s.%s\nMore Info: %s\n",
+			[rule, resource, name, url],
 		),
 		"resource": resource,
 		"rule": rule,
