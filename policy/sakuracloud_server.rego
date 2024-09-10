@@ -32,12 +32,3 @@ exception contains rules if {
 	exception.rule[_] == v.rule
 	rules := [v.rule]
 }
-
-exception contains rules if {
-	v := data.main.violation_sakuracloud_server_pw_auth_enabled_with_password[_]
-
-	some name
-	input.resource[v.resource][name]
-	name == exception.resource[v.resource][_]
-	rules := [v.rule]
-}

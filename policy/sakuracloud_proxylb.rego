@@ -43,15 +43,6 @@ exception contains rules if {
 	rules := [v.rule]
 }
 
-exception contains rules if {
-	v := data.main.violation_sakuracloud_proxylb_no_https_redirect[_]
-
-	some name
-	input.resource[v.resource][name]
-	name == exception.resource[v.resource][_]
-	rules := [v.rule]
-}
-
 warn_sakuracloud_proxylb_unspecified_syslog_host contains decision if {
 	resource := "sakuracloud_proxylb"
 	rule := "sakuracloud_proxylb_unspecified_syslog_host"
@@ -76,14 +67,5 @@ exception contains rules if {
 
 	input.resource[v.resource]
 	exception.rule[_] == v.rule
-	rules := [v.rule]
-}
-
-exception contains rules if {
-	v := data.main.warn_sakuracloud_proxylb_unspecified_syslog_host[_]
-
-	some name
-	input.resource[v.resource][name]
-	name == exception.resource[v.resource][_]
 	rules := [v.rule]
 }

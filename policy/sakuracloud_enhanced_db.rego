@@ -31,12 +31,3 @@ exception contains rules if {
 	exception.rule[_] == v.rule
 	rules := [v.rule]
 }
-
-exception contains rules if {
-	v := data.main.violation_sakuracloud_enhanced_db_unrestricted_source_networks[_]
-
-	some name
-	input.resource[v.resource][name]
-	name == exception.resource[v.resource][_]
-	rules := [v.rule]
-}

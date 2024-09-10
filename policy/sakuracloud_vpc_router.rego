@@ -84,12 +84,3 @@ exception contains rules if {
 	exception.rule[_] == v.rule
 	rules := [v.rule]
 }
-
-exception contains rules if {
-	v := data.main.warn_sakuracloud_vpc_router_unspecified_syslog_host[_]
-
-	some name
-	input.resource[v.resource][name]
-	name == exception.resource[v.resource][_]
-	rules := [v.rule]
-}
