@@ -64,6 +64,28 @@ jobs:
         run: conftest test . --ignore=".git/|.github/|.terraform/" --data="exception.json"
 ```
 
+## Exception
+You can use the Exception feature in Conftest to treat specific rules as exceptions.
+
+In the Conftest execution environment, add a YAML file like the one below. This file should list the names of the rules that you want to treat as exceptions.
+
+```yaml
+exception:
+  rule:
+    - sakuracloud_disk_not_encrypted
+```
+
+Then, use the [--data](https://www.conftest.dev/options/#-data) option with the `conftest test` command to load the above file.
+
+This will cause the listed rules to be counted as exceptions, not failures.
+
+```sh
+$ conftest test disk.tf --ignore=".git/|.github/|.terraform/" --data="exception.yml"
+EXCP - disk.tf - main - data.main.exception[_][_] == "sakuracloud_disk_not_encrypted"
+
+8 tests, 7 passed, 0 warnings, 0 failures, 1 exception
+```
+
 ## Requirements
 [Open Policy Agent](https://www.openpolicyagent.org/) v0.68.0+
 
