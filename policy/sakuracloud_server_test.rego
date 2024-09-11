@@ -18,7 +18,11 @@ resource "sakuracloud_server" "test" {
   }
 }`)
 
-	deny_sakuracloud_server_pw_auth_enabled_with_password["Password authentication is enabled with a password set on sakuracloud_server.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_server/pw_auth_enabled_with_password/\n"] with input as cfg
+	violation_sakuracloud_server_pw_auth_enabled_with_password[{
+		"msg": "sakuracloud_server_pw_auth_enabled_with_password\nPassword authentication is enabled with a password set on sakuracloud_server.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_server/pw_auth_enabled_with_password/\n",
+		"resource": "sakuracloud_server",
+		"rule": "sakuracloud_server_pw_auth_enabled_with_password",
+	}] with input as cfg
 }
 
 test_disable_pw_auth_with_ssh_key_ids {
@@ -37,7 +41,7 @@ resource "sakuracloud_server" "test" {
   }
 }`)
 
-	no_violations(deny_sakuracloud_server_pw_auth_enabled_with_password) with input as cfg
+	no_violations(violation_sakuracloud_server_pw_auth_enabled_with_password) with input as cfg
 }
 
 test_disable_pw_auth_with_password_and_ssh_key_ids {
@@ -57,7 +61,7 @@ resource "sakuracloud_server" "test" {
   }
 }`)
 
-	no_violations(deny_sakuracloud_server_pw_auth_enabled_with_password) with input as cfg
+	no_violations(violation_sakuracloud_server_pw_auth_enabled_with_password) with input as cfg
 }
 
 test_not_specified_disk_edit_parameter {
@@ -69,5 +73,5 @@ resource "sakuracloud_server" "test" {
   memory = 1
 }`)
 
-	no_violations(deny_sakuracloud_server_pw_auth_enabled_with_password) with input as cfg
+	no_violations(violation_sakuracloud_server_pw_auth_enabled_with_password) with input as cfg
 }

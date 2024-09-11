@@ -13,7 +13,11 @@ resource "sakuracloud_enhanced_db" "test" {
   region        = "is1"
 }`)
 
-	deny_sakuracloud_enhanced_db_unrestricted_source_networks["Source network is not restricted for sakuracloud_enhanced_db.test connection\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_enhanced_db/unrestricted_source_networks/\n"] with input as cfg
+	violation_sakuracloud_enhanced_db_unrestricted_source_networks[{
+		"msg": "sakuracloud_enhanced_db_unrestricted_source_networks\nSource network is not restricted for sakuracloud_enhanced_db.test connection\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_enhanced_db/unrestricted_source_networks/\n",
+		"resource": "sakuracloud_enhanced_db",
+		"rule": "sakuracloud_enhanced_db_unrestricted_source_networks",
+	}] with input as cfg
 }
 
 test_specified_allowed_networks {
@@ -31,5 +35,5 @@ resource "sakuracloud_enhanced_db" "test" {
   ]
 }`)
 
-	no_violations(deny_sakuracloud_enhanced_db_unrestricted_source_networks) with input as cfg
+	no_violations(violation_sakuracloud_enhanced_db_unrestricted_source_networks) with input as cfg
 }

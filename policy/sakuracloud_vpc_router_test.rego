@@ -7,9 +7,12 @@ test_enable_internet_connection {
 resource "sakuracloud_vpc_router" "test" {
   name                = "test"
   internet_connection = true
-}
-    `)
-	deny_sakuracloud_vpc_router_internet_connection_without_firewall["Internet connection is enabled on sakuracloud_vpc_router.test, but no firewall is configured on the global interface\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_vpc_router/internet_connection_without_firewall/\n"] with input as cfg
+}`)
+	violation_sakuracloud_vpc_router_internet_connection_without_firewall[{
+		"msg": "sakuracloud_vpc_router_internet_connection_without_firewall\nInternet connection is enabled on sakuracloud_vpc_router.test, but no firewall is configured on the global interface\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_vpc_router/internet_connection_without_firewall/\n",
+		"resource": "sakuracloud_vpc_router",
+		"rule": "sakuracloud_vpc_router_internet_connection_without_firewall",
+	}] with input as cfg
 }
 
 test_enable_internet_connection_with_private_interface_firewall {
@@ -44,9 +47,12 @@ resource "sakuracloud_vpc_router" "test" {
       description         = "desc"
     }
   }
-}
-    `)
-	deny_sakuracloud_vpc_router_internet_connection_without_firewall["Internet connection is enabled on sakuracloud_vpc_router.test, but no firewall is configured on the global interface\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_vpc_router/internet_connection_without_firewall/\n"] with input as cfg
+}`)
+	violation_sakuracloud_vpc_router_internet_connection_without_firewall[{
+		"msg": "sakuracloud_vpc_router_internet_connection_without_firewall\nInternet connection is enabled on sakuracloud_vpc_router.test, but no firewall is configured on the global interface\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_vpc_router/internet_connection_without_firewall/\n",
+		"resource": "sakuracloud_vpc_router",
+		"rule": "sakuracloud_vpc_router_internet_connection_without_firewall",
+	}] with input as cfg
 }
 
 test_enable_internet_connection_with_global_interface_firewall {
@@ -80,9 +86,8 @@ resource "sakuracloud_vpc_router" "test" {
       description         = "desc"
     }
   }
-}
-    `)
-	no_violations(deny_sakuracloud_vpc_router_internet_connection_without_firewall) with input as cfg
+}`)
+	no_violations(violation_sakuracloud_vpc_router_internet_connection_without_firewall) with input as cfg
 }
 
 test_enable_internet_connection_with_multi_interface_firewall {
@@ -143,9 +148,8 @@ resource "sakuracloud_vpc_router" "test" {
       description         = "desc"
     }
   }
-}
-    `)
-	no_violations(deny_sakuracloud_vpc_router_internet_connection_without_firewall) with input as cfg
+}`)
+	no_violations(violation_sakuracloud_vpc_router_internet_connection_without_firewall) with input as cfg
 }
 
 test_disable_internet_connection {
@@ -155,7 +159,7 @@ resource "sakuracloud_vpc_router" "test" {
   internet_connection = false
 }
     `)
-	no_violations(deny_sakuracloud_vpc_router_internet_connection_without_firewall) with input as cfg
+	no_violations(violation_sakuracloud_vpc_router_internet_connection_without_firewall) with input as cfg
 }
 
 test_unspecified_syslog_host {
@@ -165,7 +169,11 @@ resource "sakuracloud_vpc_router" "test" {
   internet_connection = true
 }
     `)
-	warn_sakuracloud_vpc_router_unspecified_syslog_host["No syslog server is configured for sakuracloud_vpc_router.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_vpc_router/unspecified_syslog_host/\n"] with input as cfg
+	warn_sakuracloud_vpc_router_unspecified_syslog_host[{
+		"msg": "sakuracloud_vpc_router_unspecified_syslog_host\nNo syslog server is configured for sakuracloud_vpc_router.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_vpc_router/unspecified_syslog_host/\n",
+		"resource": "sakuracloud_vpc_router",
+		"rule": "sakuracloud_vpc_router_unspecified_syslog_host",
+	}] with input as cfg
 }
 
 test_specified_syslog_host {
@@ -174,7 +182,6 @@ resource "sakuracloud_vpc_router" "test" {
   name                = "test"
   internet_connection = true
   syslog_host         = "192.168.0.1"
-}
-    `)
+}`)
 	no_violations(warn_sakuracloud_vpc_router_unspecified_syslog_host) with input as cfg
 }

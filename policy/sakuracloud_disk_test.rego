@@ -11,7 +11,11 @@ resource "sakuracloud_disk" "test" {
   connector            = "virtio"
   source_archive_id    = data.sakuracloud_archive.ubuntu2204.id
 }`)
-	deny_sakuracloud_disk_not_encrypted["Disk encryption is not enabled in sakuracloud_disk.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_disk/not_encrypted/\n"] with input as cfg
+	violation_sakuracloud_disk_not_encrypted[{
+		"msg": "sakuracloud_disk_not_encrypted\nDisk encryption is not enabled in sakuracloud_disk.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_disk/not_encrypted/\n",
+		"resource": "sakuracloud_disk",
+		"rule": "sakuracloud_disk_not_encrypted",
+	}] with input as cfg
 }
 
 test_specified_encryption_algorithm_none {
@@ -24,7 +28,11 @@ resource "sakuracloud_disk" "test" {
   source_archive_id    = data.sakuracloud_archive.ubuntu2204.id
   encryption_algorithm = "none"
 }`)
-	deny_sakuracloud_disk_not_encrypted["Disk encryption is not enabled in sakuracloud_disk.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_disk/not_encrypted/\n"] with input as cfg
+	violation_sakuracloud_disk_not_encrypted[{
+		"msg": "sakuracloud_disk_not_encrypted\nDisk encryption is not enabled in sakuracloud_disk.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_disk/not_encrypted/\n",
+		"resource": "sakuracloud_disk",
+		"rule": "sakuracloud_disk_not_encrypted",
+	}] with input as cfg
 }
 
 test_specified_encryption_algorithm_aes256_xts {
@@ -37,5 +45,5 @@ resource "sakuracloud_disk" "test" {
   source_archive_id    = data.sakuracloud_archive.ubuntu2204.id
   encryption_algorithm = "aes256_xts"
 }`)
-	no_violations(deny_sakuracloud_disk_not_encrypted) with input as cfg
+	no_violations(violation_sakuracloud_disk_not_encrypted) with input as cfg
 }

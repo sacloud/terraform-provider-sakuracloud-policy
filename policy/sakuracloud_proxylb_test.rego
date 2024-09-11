@@ -20,7 +20,11 @@ resource "sakuracloud_proxylb" "test" {
     port       = 80
   }
 }`)
-	deny_sakuracloud_proxylb_no_https_redirect["HTTP to HTTPS redirect is not enabled on sakuracloud_proxylb.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/no_https_redirect/\n"] with input as cfg
+	violation_sakuracloud_proxylb_no_https_redirect[{
+		"msg": "sakuracloud_proxylb_no_https_redirect\nHTTP to HTTPS redirect is not enabled on sakuracloud_proxylb.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/no_https_redirect/\n",
+		"resource": "sakuracloud_proxylb",
+		"rule": "sakuracloud_proxylb_no_https_redirect",
+	}] with input as cfg
 }
 
 test_disable_redirect_to_https {
@@ -42,7 +46,11 @@ resource "sakuracloud_proxylb" "test" {
     redirect_to_https = false
   }
 }`)
-	deny_sakuracloud_proxylb_no_https_redirect["HTTP to HTTPS redirect is not enabled on sakuracloud_proxylb.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/no_https_redirect/\n"] with input as cfg
+	violation_sakuracloud_proxylb_no_https_redirect[{
+		"msg": "sakuracloud_proxylb_no_https_redirect\nHTTP to HTTPS redirect is not enabled on sakuracloud_proxylb.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/no_https_redirect/\n",
+		"resource": "sakuracloud_proxylb",
+		"rule": "sakuracloud_proxylb_no_https_redirect",
+	}] with input as cfg
 }
 
 test_redirect_to_https {
@@ -68,7 +76,7 @@ resource "sakuracloud_proxylb" "test" {
     port       = 443
   }
 }`)
-	no_violations(deny_sakuracloud_proxylb_no_https_redirect) with input as cfg
+	no_violations(violation_sakuracloud_proxylb_no_https_redirect) with input as cfg
 }
 
 test_redirect_to_https_not_specified_https_bind_port {
@@ -89,7 +97,7 @@ resource "sakuracloud_proxylb" "test" {
     redirect_to_https = true
   }
 }`)
-	no_violations(deny_sakuracloud_proxylb_no_https_redirect) with input as cfg
+	no_violations(violation_sakuracloud_proxylb_no_https_redirect) with input as cfg
 }
 
 test_unspecified_syslog_host {
@@ -109,7 +117,11 @@ resource "sakuracloud_proxylb" "test" {
     port       = 80
   }
 }`)
-	warn_sakuracloud_proxylb_unspecified_syslog_host["No syslog server is configured for sakuracloud_proxylb.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/unspecified_syslog_host/\n"] with input as cfg
+	warn_sakuracloud_proxylb_unspecified_syslog_host[{
+		"msg": "sakuracloud_proxylb_unspecified_syslog_host\nNo syslog server is configured for sakuracloud_proxylb.test\nMore Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/unspecified_syslog_host/\n",
+		"resource": "sakuracloud_proxylb",
+		"rule": "sakuracloud_proxylb_unspecified_syslog_host",
+	}] with input as cfg
 }
 
 test_specified_syslog_host {
