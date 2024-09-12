@@ -22,7 +22,7 @@ As mentioned earlier, OPA and Conftest must be installed in the local environmen
 $ cd terraform
 
 # Download the policy
-$ conftest pull 'git::https://github.com/sacloud/terraform-provider-sakuracloud-policy.git//policy?ref=v1.1.0'
+$ conftest pull 'git::https://github.com/sacloud/terraform-provider-sakuracloud-policy.git//policy?ref=v1.2.0'
 
 # Run the tests
 $ conftest test . --ignore=".git/|.github/|.terraform/"
@@ -58,7 +58,7 @@ jobs:
         run: conftest -v
 
       - name: download policy
-        run: conftest pull 'git::https://github.com/sacloud/terraform-provider-sakuracloud-policy.git//policy?ref=v1.1.0'
+        run: conftest pull 'git::https://github.com/sacloud/terraform-provider-sakuracloud-policy.git//policy?ref=v1.2.0'
 
       - name: run test
         run: conftest test . --ignore=".git/|.github/|.terraform/" --data="exception.json"
