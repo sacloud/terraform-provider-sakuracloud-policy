@@ -86,6 +86,58 @@ EXCP - disk.tf - main - data.main.exception[_][_] == "sakuracloud_disk_not_encry
 8 tests, 7 passed, 0 warnings, 0 failures, 1 exception
 ```
 
+## Custom Policies
+In addition to the default policies provided, users can add their own custom policies.
+
+For example, by incorporating organization-specific rules, you can ensure that your infrastructure adheres to your organization’s unique policies and guidelines.
+
+### 1. Creating a Custom Policy
+Prepare a `.rego` file where you define the custom policy. It is assumed that this file will be managed in the same repository as the Terraform code.
+
+Below is an example of creating a file named `/custom-policy/sakuracloud_disk_too_small.rego`.
+
+This example defines a custom policy that returns an error when the disk size is less than 40GB.
+
+```rego
+package main
+
+import data.helpers.has_field
+import rego.v1
+
+deny_sakuracloud_disk_too_small contains msg if {
+    resource := "sakuracloud_disk"
+    rule := "sakuracloud_disk_too_small"
+
+    some name
+    disk := input.resource[resource][name]
+    disk.size < 40
+
+    msg := sprintf(
+        "%s\nDisk is too small %s.%s\n",
+        [rule, resource, name],
+    )
+}
+```
+
+### 2. Running Custom Policies with the conftest Command
+
+To apply custom policies in addition to the default policies, use the [--policy](https://www.conftest.dev/options/#-policy) option of the `conftest test` command as shown below.
+
+This command applies both the default policies in the `policy/` directory and the custom policies in the `custom-policy/` directory.
+
+```sh
+$ conftest test disk.tf --ignore=".git/|.github/|.terraform/" --policy="policy/" --policy="custom-policy/"
+FAIL - disk.tf - main - sakuracloud_disk_too_small
+Disk is too small sakuracloud_disk.fail_disk_1
+
+FAIL - disk.tf - main - sakuracloud_disk_not_encrypted
+Disk encryption is not enabled in sakuracloud_disk.fail_disk_1
+More Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_disk/not_encrypted/
+
+
+9 tests, 7 passed, 0 warnings, 2 failures, 0 exceptions
+```
+
 ## Requirements
 [Open Policy Agent](https://www.openpolicyagent.org/) v0.68.0+
 
