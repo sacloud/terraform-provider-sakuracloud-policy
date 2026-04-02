@@ -1,8 +1,9 @@
 package main
 
 import data.test.helpers.no_violations
+import rego.v1
 
-test_not_specified_redirect_to_https {
+test_not_specified_redirect_to_https if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_proxylb" "test" {
   name = "test"
@@ -27,7 +28,7 @@ resource "sakuracloud_proxylb" "test" {
 	}] with input as cfg
 }
 
-test_disable_redirect_to_https {
+test_disable_redirect_to_https if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_proxylb" "test" {
   name = "test"
@@ -53,7 +54,7 @@ resource "sakuracloud_proxylb" "test" {
 	}] with input as cfg
 }
 
-test_redirect_to_https {
+test_redirect_to_https if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_proxylb" "test" {
   name = "test"
@@ -79,7 +80,7 @@ resource "sakuracloud_proxylb" "test" {
 	no_violations(violation_sakuracloud_proxylb_no_https_redirect) with input as cfg
 }
 
-test_redirect_to_https_not_specified_https_bind_port {
+test_redirect_to_https_not_specified_https_bind_port if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_proxylb" "test" {
   name = "test"
@@ -100,7 +101,7 @@ resource "sakuracloud_proxylb" "test" {
 	no_violations(violation_sakuracloud_proxylb_no_https_redirect) with input as cfg
 }
 
-test_unspecified_syslog_host {
+test_unspecified_syslog_host if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_proxylb" "test" {
   name = "test"
@@ -124,7 +125,7 @@ resource "sakuracloud_proxylb" "test" {
 	}] with input as cfg
 }
 
-test_specified_syslog_host {
+test_specified_syslog_host if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_proxylb" "test" {
   name = "test"

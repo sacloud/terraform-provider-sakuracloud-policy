@@ -1,8 +1,9 @@
 package main
 
 import data.test.helpers.no_violations
+import rego.v1
 
-test_enable_pw_auth_with_password {
+test_enable_pw_auth_with_password if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_server" "test" {
   name   = "test"
@@ -25,7 +26,7 @@ resource "sakuracloud_server" "test" {
 	}] with input as cfg
 }
 
-test_disable_pw_auth_with_ssh_key_ids {
+test_disable_pw_auth_with_ssh_key_ids if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_server" "test" {
   name   = "test"
@@ -44,7 +45,7 @@ resource "sakuracloud_server" "test" {
 	no_violations(violation_sakuracloud_server_pw_auth_enabled_with_password) with input as cfg
 }
 
-test_disable_pw_auth_with_password_and_ssh_key_ids {
+test_disable_pw_auth_with_password_and_ssh_key_ids if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_server" "test" {
   name   = "test"
@@ -64,7 +65,7 @@ resource "sakuracloud_server" "test" {
 	no_violations(violation_sakuracloud_server_pw_auth_enabled_with_password) with input as cfg
 }
 
-test_not_specified_disk_edit_parameter {
+test_not_specified_disk_edit_parameter if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_server" "test" {
   name   = "test"

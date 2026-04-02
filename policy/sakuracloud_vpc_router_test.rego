@@ -1,8 +1,9 @@
 package main
 
 import data.test.helpers.no_violations
+import rego.v1
 
-test_enable_internet_connection {
+test_enable_internet_connection if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_vpc_router" "test" {
   name                = "test"
@@ -15,7 +16,7 @@ resource "sakuracloud_vpc_router" "test" {
 	}] with input as cfg
 }
 
-test_enable_internet_connection_with_private_interface_firewall {
+test_enable_internet_connection_with_private_interface_firewall if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_vpc_router" "test" {
   name                = "test"
@@ -55,7 +56,7 @@ resource "sakuracloud_vpc_router" "test" {
 	}] with input as cfg
 }
 
-test_enable_internet_connection_with_global_interface_firewall {
+test_enable_internet_connection_with_global_interface_firewall if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_vpc_router" "test" {
   name                = "test"
@@ -90,7 +91,7 @@ resource "sakuracloud_vpc_router" "test" {
 	no_violations(violation_sakuracloud_vpc_router_internet_connection_without_firewall) with input as cfg
 }
 
-test_enable_internet_connection_with_multi_interface_firewall {
+test_enable_internet_connection_with_multi_interface_firewall if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_vpc_router" "test" {
   name                = "test"
@@ -152,7 +153,7 @@ resource "sakuracloud_vpc_router" "test" {
 	no_violations(violation_sakuracloud_vpc_router_internet_connection_without_firewall) with input as cfg
 }
 
-test_disable_internet_connection {
+test_disable_internet_connection if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_vpc_router" "test" {
   name                = "test"
@@ -162,7 +163,7 @@ resource "sakuracloud_vpc_router" "test" {
 	no_violations(violation_sakuracloud_vpc_router_internet_connection_without_firewall) with input as cfg
 }
 
-test_unspecified_syslog_host {
+test_unspecified_syslog_host if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_vpc_router" "test" {
   name                = "test"
@@ -176,7 +177,7 @@ resource "sakuracloud_vpc_router" "test" {
 	}] with input as cfg
 }
 
-test_specified_syslog_host {
+test_specified_syslog_host if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_vpc_router" "test" {
   name                = "test"

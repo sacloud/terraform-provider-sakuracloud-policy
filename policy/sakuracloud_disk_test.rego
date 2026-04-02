@@ -1,8 +1,9 @@
 package main
 
 import data.test.helpers.no_violations
+import rego.v1
 
-test_not_specified_encryption_algorithm {
+test_not_specified_encryption_algorithm if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_disk" "test" {
   name                 = "test"
@@ -18,7 +19,7 @@ resource "sakuracloud_disk" "test" {
 	}] with input as cfg
 }
 
-test_specified_encryption_algorithm_none {
+test_specified_encryption_algorithm_none if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_disk" "test" {
   name                 = "test"
@@ -35,7 +36,7 @@ resource "sakuracloud_disk" "test" {
 	}] with input as cfg
 }
 
-test_specified_encryption_algorithm_aes256_xts {
+test_specified_encryption_algorithm_aes256_xts if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_disk" "test" {
   name                 = "test"

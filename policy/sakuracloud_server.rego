@@ -9,10 +9,11 @@ violation_sakuracloud_server_pw_auth_enabled_with_password contains decision if 
 	rule := "sakuracloud_server_pw_auth_enabled_with_password"
 
 	some name
-	server := input.resource[resource][name]
+	server := input.resource[resource][name][_]
+ 	disk_edit_parameter := server.disk_edit_parameter[_]
 
-	has_field(server.disk_edit_parameter, "password")
-	server.disk_edit_parameter.disable_pw_auth == false
+	has_field(disk_edit_parameter, "password")
+	disk_edit_parameter.disable_pw_auth == false
 
 	url := "https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_server/pw_auth_enabled_with_password/"
 	decision := {

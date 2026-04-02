@@ -9,7 +9,7 @@ violation_sakuracloud_proxylb_no_https_redirect contains decision if {
 	rule := "sakuracloud_proxylb_no_https_redirect"
 
 	some name
-	proxylb := input.resource[resource][name]
+	proxylb := input.resource[resource][name][_]
 	not redirect_https(proxylb)
 
 	url := "https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/no_https_redirect/"
@@ -48,7 +48,7 @@ warn_sakuracloud_proxylb_unspecified_syslog_host contains decision if {
 	rule := "sakuracloud_proxylb_unspecified_syslog_host"
 
 	some name
-	proxylb := input.resource[resource][name]
+	proxylb := input.resource[resource][name][_]
 	not has_field(proxylb, "syslog")
 	url := "https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_proxylb/unspecified_syslog_host/"
 

@@ -139,9 +139,9 @@ More Info: https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_disk/not_
 ```
 
 ## Requirements
-[Open Policy Agent](https://www.openpolicyagent.org/) v0.68.0+
+[Open Policy Agent](https://www.openpolicyagent.org/) v1.14.1+
 
-[Conftest](https://www.conftest.dev/) v0.55.0+
+[Conftest](https://www.conftest.dev/) v0.67.1+
 
 [Terraform provider for SakuraCloud](https://registry.terraform.io/providers/sacloud/sakuracloud/latest) v2.25.4+
 

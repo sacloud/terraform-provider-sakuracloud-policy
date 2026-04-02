@@ -1,7 +1,6 @@
 package main
 
 import data.exception
-import data.helpers.has_field
 import rego.v1
 
 violation_sakuracloud_load_balancer_http_not_enabled contains decision if {
@@ -9,8 +8,8 @@ violation_sakuracloud_load_balancer_http_not_enabled contains decision if {
 	rule := "sakuracloud_load_balancer_http_not_enabled"
 
 	some name
-	load_balancer := input.resource[resource][name]
-	load_balancer.vip.port == 80
+	load_balancer := input.resource[resource][name][_]
+	load_balancer.vip[_].port == 80
 
 	url := "https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_load_balancer/http_not_enabled/"
 	decision := {

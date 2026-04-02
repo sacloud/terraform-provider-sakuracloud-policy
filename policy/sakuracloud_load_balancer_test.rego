@@ -1,8 +1,9 @@
 package main
 
 import data.test.helpers.no_violations
+import rego.v1
 
-test_enable_http_port {
+test_enable_http_port if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_load_balancer" "test" {
   name = "test"
@@ -40,7 +41,7 @@ resource "sakuracloud_load_balancer" "test" {
 	}] with input as cfg
 }
 
-test_enable_https_port {
+test_enable_https_port if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_load_balancer" "test" {
   name = "test"
@@ -74,7 +75,7 @@ resource "sakuracloud_load_balancer" "test" {
 	no_violations(violation_sakuracloud_load_balancer_http_not_enabled) with input as cfg
 }
 
-test_not_specified_vip {
+test_not_specified_vip if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_load_balancer" "test" {
   name = "test"
