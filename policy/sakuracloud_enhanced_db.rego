@@ -9,7 +9,7 @@ violation_sakuracloud_enhanced_db_unrestricted_source_networks contains decision
 	rule := "sakuracloud_enhanced_db_unrestricted_source_networks"
 
 	some name
-	enhanced_db := input.resource[resource][name]
+	enhanced_db := input.resource[resource][name][_]
 
 	not has_field(enhanced_db, "allowed_networks")
 

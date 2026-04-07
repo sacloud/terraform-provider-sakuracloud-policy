@@ -2,7 +2,7 @@ name: conftest verify
 on:
   pull_request:
 env:
-  CONFTEST_VERSION: 0.55.0
+  CONFTEST_VERSION: 0.67.1
 jobs:
   verify:
     name: verify

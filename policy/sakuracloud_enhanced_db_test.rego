@@ -1,8 +1,9 @@
 package main
 
 import data.test.helpers.no_violations
+import rego.v1
 
-test_not_specified_allowed_networks {
+test_not_specified_allowed_networks if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_enhanced_db" "test" {
   name     = "test"
@@ -20,7 +21,7 @@ resource "sakuracloud_enhanced_db" "test" {
 	}] with input as cfg
 }
 
-test_specified_allowed_networks {
+test_specified_allowed_networks if {
 	cfg := parse_config("hcl2", `
 resource "sakuracloud_enhanced_db" "test" {
   name     = "test"

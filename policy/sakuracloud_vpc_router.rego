@@ -2,6 +2,7 @@ package main
 
 import data.exception
 import data.helpers.has_field
+import data.test.helpers.no_violations
 import rego.v1
 
 violation_sakuracloud_vpc_router_internet_connection_without_firewall contains decision if {
@@ -9,7 +10,7 @@ violation_sakuracloud_vpc_router_internet_connection_without_firewall contains d
 	rule := "sakuracloud_vpc_router_internet_connection_without_firewall"
 
 	some name
-	vpc_router := input.resource[resource][name]
+	vpc_router := input.resource[resource][name][_]
 
 	is_internet_connected(vpc_router)
 	not used_firewall_global_interface(vpc_router)
@@ -63,7 +64,7 @@ warn_sakuracloud_vpc_router_unspecified_syslog_host contains decision if {
 	rule := "sakuracloud_vpc_router_unspecified_syslog_host"
 
 	some name
-	vpc_router := input.resource[resource][name]
+	vpc_router := input.resource[resource][name][_]
 	not has_field(vpc_router, "syslog_host")
 
 	url := "https://docs.usacloud.jp/terraform-policy/rules/sakuracloud_vpc_router/unspecified_syslog_host/"
